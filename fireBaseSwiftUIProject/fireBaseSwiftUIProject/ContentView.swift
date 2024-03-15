@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    var email: String
+    @State private var email = ""
+    @State private var password = ""
     var body: some View {
-        ZStack {
+        VStack {
             Text("Log In")
                 .font(.title)
                 .bold()
             VStack {
-//                TextField("Email", text:  $email)
-                
-                
-                
+                TextField("Email", text:  $email)
+                TextField("Password", text:  $password)
+
             }
         }
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    ContentView(email: "asd")
+    ContentView()
 }
