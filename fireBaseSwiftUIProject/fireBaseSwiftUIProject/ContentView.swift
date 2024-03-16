@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
     @State private var email = ""
@@ -22,6 +23,14 @@ struct ContentView: View {
             }
         }
         .padding(.horizontal)
+    }
+    func register() {
+        Auth.auth().createUser(withEmal: email, password: password) {
+            result, error in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+        }
     }
 }
 

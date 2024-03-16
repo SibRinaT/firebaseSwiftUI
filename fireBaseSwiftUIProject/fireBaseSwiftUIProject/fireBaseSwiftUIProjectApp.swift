@@ -10,6 +10,10 @@ import Firebase
 
 @main
 struct fireBaseSwiftUIProjectApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
