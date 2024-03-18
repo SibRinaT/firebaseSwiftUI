@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-import FirebaseAuth
+//import FirebaseAuth  //not work
 
 struct ContentView: View {
     @State private var email = ""
@@ -26,7 +26,7 @@ struct ContentView: View {
         .padding(.horizontal)
     }
     func register() {
-        Auth.auth().createUser(withEmal: email, password: password) {
+        Auth.auth().createUser(withEmal: email, password: password) {  // need to fix
             result, error in
             if error != nil {
                 print(error?.localizedDescription)
