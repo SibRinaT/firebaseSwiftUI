@@ -16,7 +16,7 @@ struct fireBaseSwiftUIProjectApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignUp()
         }
     }
 }
