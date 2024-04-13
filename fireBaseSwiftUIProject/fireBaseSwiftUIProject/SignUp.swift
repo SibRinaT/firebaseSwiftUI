@@ -14,6 +14,8 @@ import FirebaseAuth
 struct SignUp: View {
     @State private var email = ""
     @State private var password = ""
+//    @Binding var currentShowingView: String
+
     var body: some View {
         VStack {
             Image("SwiftIcon")
@@ -65,7 +67,12 @@ struct SignUp: View {
             .padding()
             
             Button(action: {
-                
+                NavigationLink(destination: LogIn()) {
+                    
+                }
+//                withAnimation {
+//                    self.currentShowingView = "login"
+//                }
             }) {
                 Text("Do you have account?")
                     .foregroundColor(.black)
@@ -74,7 +81,7 @@ struct SignUp: View {
             
             Spacer()
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {register()}, label: {
                 Text("Button")
                     .foregroundColor(.white)
                     .bold()
@@ -91,14 +98,20 @@ struct SignUp: View {
         }
     }
     func register() {
-        Auth.auth().createUser(withEmail: email, password: password) {              result, error in
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let result = result {
+                print(result)
+            }
             if error != nil {
                 print(error?.localizedDescription)
+                return
             }
         }
     }
 }
 
 #Preview {
-    SignUp()
+    NavigationView {
+        SignUp()
+    }
 }

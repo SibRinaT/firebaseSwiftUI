@@ -7,11 +7,13 @@
 
 import SwiftUI
 import Firebase
-
+import FirebaseAuth
 
 struct LogIn: View {
     @State private var email = ""
     @State private var password = ""
+    @AppStorage("uid") var userID: String = ""
+
     
     var body: some View {
         VStack {
@@ -29,10 +31,11 @@ struct LogIn: View {
                 TextField("Email", text:  $email)
                 
                 Spacer()
-                
-                Image(systemName: "checkmark")
-                    .bold()
-                    .foregroundColor(.green)
+                if (email.count != 0) {
+                    Image(systemName: "checkmark")
+                        .bold()
+                        .foregroundColor(.green)
+                }
             }
             .padding()
             .overlay(
@@ -47,10 +50,11 @@ struct LogIn: View {
                 TextField("Password", text:  $password)
                 
                 Spacer()
-                
-                Image(systemName: "checkmark")
-                    .bold()
-                    .foregroundColor(.green)
+                if (password.count != 0) {
+                    Image(systemName: "checkmark")
+                        .bold()
+                        .foregroundColor(.green)
+                }
             }
             .padding()
             .overlay(
@@ -69,8 +73,44 @@ struct LogIn: View {
             }
             
             Spacer()
+                      Button {
+                          Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                              if let error = error {
+                                  print(error)
+                                  return
+                              }
+                              
+                              if let authResult = authResult {
+                                  print(authResult.user.uid)
+                                  withAnimation {
+                                      userID = authResult.user.uid
+                                  }
+                              }
+                              
+                              
+                          }
+                      } label: {
+                          Text("Sign In")
+                              .foregroundColor(.white)
+                              .font(.title3)
+                              .bold()
+                          
+                              .frame(maxWidth: .infinity)
+                              .padding()
+                          
+                              .background(
+                                  RoundedRectangle(cornerRadius: 10)
+                                      .fill(Color.black)
+                              )
+                              .padding(.horizontal)
+                      }
         }
     }
+//    func LogIn() {
+//
+//            // ...
+//        }
+//    }
 }
 #Preview {
     LogIn()
