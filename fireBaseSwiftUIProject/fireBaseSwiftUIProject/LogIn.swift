@@ -13,6 +13,8 @@ struct LogIn: View {
     @State private var email = ""
     @State private var password = ""
     @AppStorage("uid") var userID: String = ""
+    @State private var isDetailViewPresented = true
+
 
     
     var body: some View {
@@ -64,13 +66,12 @@ struct LogIn: View {
             )
             .padding()
             
-            Button(action: {
-                
-            }) {
+            NavigationLink(destination: SignUp()) {
                 Text("You dont have account?")
                     .foregroundColor(.black)
                     .bold()
             }
+            
             
             Spacer()
                       Button {
@@ -79,15 +80,13 @@ struct LogIn: View {
                                   print(error)
                                   return
                               }
-                              
                               if let authResult = authResult {
                                   print(authResult.user.uid)
                                   withAnimation {
                                       userID = authResult.user.uid
+                                      MainView()
                                   }
                               }
-                              
-                              
                           }
                       } label: {
                           Text("Sign In")
@@ -104,6 +103,10 @@ struct LogIn: View {
                               )
                               .padding(.horizontal)
                       }
+                      .sheet(isPresented: $isDetailViewPresented) {
+                          // Выводим другую вьюшку, когда флаг isDetailViewPresented равен true
+                          SignUp()
+                      }
         }
     }
 //    func LogIn() {
@@ -113,5 +116,7 @@ struct LogIn: View {
 //    }
 }
 #Preview {
-    LogIn()
+    NavigationView {
+        LogIn()
+    }
 }

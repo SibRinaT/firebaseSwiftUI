@@ -66,14 +66,7 @@ struct SignUp: View {
             )
             .padding()
             
-            Button(action: {
-                NavigationLink(destination: LogIn()) {
-                    
-                }
-//                withAnimation {
-//                    self.currentShowingView = "login"
-//                }
-            }) {
+            NavigationLink(destination: LogIn()) {
                 Text("Do you have account?")
                     .foregroundColor(.black)
                     .bold()
